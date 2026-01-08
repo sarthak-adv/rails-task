@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "blogs/index"
+  get "blogs/show"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,4 +13,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-end
+  
+  post "/login", to: "access/login#check_access", as: :user_login
+  get  "/user",  to: "users#get_details",        as: :show_user_details
+  get  "/blogs", to: "blogs#get_blogs",          as: :show_blogs_org
+  
