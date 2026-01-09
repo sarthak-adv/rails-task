@@ -9,7 +9,7 @@ class LoginController < ApplicationController
 
         if user&.authenticate(password)
             # get all blogs
-            blogs = current_user.organization.blogs
+            blogs = user.org.blogs
 
         render json: {
             blog_data: blogs,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_08_064952) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_09_065802) do
   create_table "blogs", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -32,6 +32,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_064952) do
     t.string "name"
     t.integer "org_id", null: false
     t.string "password"
+    t.string "password_digest"
     t.datetime "updated_at", null: false
     t.index ["org_id"], name: "index_users_on_org_id"
   end
