@@ -24,6 +24,134 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% unless controller_name == 'login' && action_name == 'new' %>
+      <nav class="main-nav">
+        <div class="nav-container">
+          <div class="nav-brand">
+            <%= link_to "Blog Task", blogs_path, class: "nav-logo" %>
+          </div>
+          <div class="nav-links">
+            <% if session[:user_id].present? && @current_user %>
+              <span class="nav-user">Welcome, <%= @current_user.name %>!</span>
+              <%= link_to "Blogs", blogs_path, class: "nav-link" %>
+              <%= link_to "Logout", logout_path, class: "nav-link nav-link-logout" %>
+            <% else %>
+              <%= link_to "Login", login_path, class: "nav-link" %>
+            <% end %>
+          </div>
+        </div>
+      </nav>
+    <% end %>
+
+    <main class="main-content">
+      <%= yield %>
+    </main>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background: #f7fafc;
+        color: #2d3748;
+        line-height: 1.6;
+      }
+
+      .main-nav {
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 16px 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-brand {
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .nav-logo {
+        color: #667eea;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .nav-logo:hover {
+        color: #764ba2;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .nav-user {
+        color: #4a5568;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .nav-link {
+        color: #4a5568;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        padding: 8px 16px;
+        border-radius: 6px;
+        transition: background-color 0.2s, color 0.2s;
+      }
+
+      .nav-link:hover {
+        background-color: #edf2f7;
+        color: #667eea;
+      }
+
+      .nav-link-logout {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .nav-link-logout:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        color: white;
+      }
+
+      .main-content {
+        min-height: calc(100vh - 80px);
+      }
+
+      @media (max-width: 768px) {
+        .nav-container {
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+
+        .nav-user {
+          display: none;
+        }
+      }
+    </style>
   </body>
 </html>

@@ -7,12 +7,14 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  before_action :authenticate_user
+
   def authenticate_user
-    token = request.headers["Authorization"]
-    @current_user = User.find_by(auth_token: token)
+    user_id = session[:user_id]
+    @current_user = User.find_by(id: user_id) if user_id
 
     unless @current_user
-      render json: { error: "Unauthorized" }, status: :unauthorized
+      redirect_to login_path, alert: "Please log in to continue"
     end
   end
 end

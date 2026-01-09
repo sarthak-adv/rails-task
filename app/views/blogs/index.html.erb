@@ -1,0 +1,213 @@
+<% content_for :title, "Blogs - Blog Task" %>
+
+<div class="blogs-container">
+  <div class="blogs-header">
+    <h1 class="blogs-title">My Blogs</h1>
+    <p class="blogs-subtitle">Welcome, <%= @current_user.name %>!</p>
+    <p class="blogs-org">Organization: <%= @current_user.org.name %></p>
+  </div>
+
+  <% if flash[:notice] %>
+    <div class="alert-message success">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="alert-message error">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <% if @blogs.any? %>
+    <div class="blogs-grid">
+      <% @blogs.each do |blog| %>
+        <div class="blog-card">
+          <div class="blog-card-header">
+            <h2 class="blog-card-title">
+              <%= link_to blog.title, blog_path(blog), class: "blog-link" %>
+            </h2>
+            <span class="blog-date">
+              <%= blog.created_at.strftime("%B %d, %Y") %>
+            </span>
+          </div>
+          <div class="blog-card-body">
+            <p class="blog-preview">
+              <%= truncate(blog.body, length: 200) %>
+            </p>
+          </div>
+          <div class="blog-card-footer">
+            <%= link_to "Read More →", blog_path(blog), class: "read-more-link" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <div class="empty-icon">📝</div>
+      <h2>No blogs yet</h2>
+      <p>There are no blogs in your organization yet.</p>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .blogs-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .blogs-header {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .blogs-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 12px 0;
+  }
+
+  .blogs-subtitle {
+    font-size: 20px;
+    color: #4a5568;
+    margin: 0 0 8px 0;
+  }
+
+  .blogs-org {
+    font-size: 16px;
+    color: #718096;
+    margin: 0;
+  }
+
+  .alert-message {
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+
+  .alert-message.success {
+    background-color: #c6f6d5;
+    border: 1px solid #68d391;
+    color: #22543d;
+  }
+
+  .alert-message.error {
+    background-color: #fed7d7;
+    border: 1px solid #fc8181;
+    color: #c53030;
+  }
+
+  .blogs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+  }
+
+  .blog-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .blog-card-header {
+    margin-bottom: 16px;
+  }
+
+  .blog-card-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 8px 0;
+  }
+
+  .blog-link {
+    color: #1a202c;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .blog-link:hover {
+    color: #667eea;
+  }
+
+  .blog-date {
+    font-size: 14px;
+    color: #718096;
+  }
+
+  .blog-card-body {
+    flex-grow: 1;
+    margin-bottom: 16px;
+  }
+
+  .blog-preview {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4a5568;
+    margin: 0;
+  }
+
+  .blog-card-footer {
+    margin-top: auto;
+  }
+
+  .read-more-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.2s;
+  }
+
+  .read-more-link:hover {
+    color: #764ba2;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .empty-icon {
+    font-size: 64px;
+    margin-bottom: 24px;
+  }
+
+  .empty-state h2 {
+    font-size: 32px;
+    color: #1a202c;
+    margin: 0 0 12px 0;
+  }
+
+  .empty-state p {
+    font-size: 18px;
+    color: #718096;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .blogs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .blogs-title {
+      font-size: 36px;
+    }
+  }
+</style>
