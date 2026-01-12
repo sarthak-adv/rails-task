@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   # Blogs
   get "/blogs",     to: "blogs#index", as: :blogs
   get "/blogs/:id", to: "blogs#show",  as: :blog
+  get "/blogs/:id/edit", to: "blogs#edit", as: :edit_blog
+  patch "/blogs/:id", to: "blogs#update", as: :update_blog
 
   patch  "/blog/:id", to: "blogs#patch_blog",  as: :patch_blog
   delete "/blog/:id", to: "blogs#delete_blog", as: :delete_blog

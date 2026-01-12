@@ -4,7 +4,15 @@ class LoginController < ApplicationController
     skip_forgery_protection only: [ :check_access ]
 
     def new
-        redirect_to blogs_path if session[:user_id].present?
+        if session[:user_id].present?
+            user = User.find_by(id: session[:user_id])
+            if user
+                redirect_to blogs_path
+            else
+
+                session[:user_id] = nil
+            end
+        end
     end
 
     def check_access
