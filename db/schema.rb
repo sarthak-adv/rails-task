@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_09_065802) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_12_054712) do
   create_table "blogs", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -23,6 +23,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_09_065802) do
   create_table "orgs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rules", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "desc"
+    t.text "key"
+    t.text "rule_type"
     t.datetime "updated_at", null: false
   end
 
