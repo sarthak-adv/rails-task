@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  org: one
+  rule: one
+  enabled: false
+  value: 
+
+two:
+  org: two
+  rule: two
+  enabled: false
+  value: 
