@@ -17,8 +17,10 @@ Rails.application.routes.draw do
   post "/login", to: "login#check_access", as: :user_login
   get "/logout", to: "login#logout", as: :logout
 
-  # Blog routes (RESTful)
-  resources :blogs, only: [ :index, :show ]
-  # get  "/user",  to: "users#get_details",        as: :show_user_details
-  # get  "/blogs", to: "blogs#get_blogs",          as: :show_blogs_org
+  # Blogs
+  get "/blogs",     to: "blogs#index", as: :blogs
+  get "/blogs/:id", to: "blogs#show",  as: :blog
+
+  patch  "/blog/:id", to: "blogs#patch_blog",  as: :patch_blog
+  delete "/blog/:id", to: "blogs#delete_blog", as: :delete_blog
 end
