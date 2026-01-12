@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
-    before_action :ensure_admin, only: [ :edit, :update, :delete_blog ]
-    before_action :set_blog, only: [ :show, :edit, :update, :delete_blog ]
+    before_action :ensure_admin, only: [ :delete_blog, :patch_blog ]
+    before_action :set_blog, only: [ :show, :delete_blog, :patch_blog ]
 
     def index
         @blogs = @current_user.org.blogs.order(created_at: :desc)
@@ -9,17 +9,6 @@ class BlogsController < ApplicationController
     def show
     rescue ActiveRecord::RecordNotFound
         redirect_to blogs_path, alert: "Blog not found"
-    end
-
-    def edit
-    end
-
-    def update
-        if @blog.update(blog_params)
-            redirect_to blog_path(@blog), notice: "Blog updated successfully"
-        else
-            render :edit, status: :unprocessable_entity
-        end
     end
 
     def patch_blog

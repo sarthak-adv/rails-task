@@ -17,7 +17,7 @@
       </div>
     <% end %>
 
-    <%= form_with model: [@blog], url: update_blog_path(@blog), method: :patch, local: true do |form| %>
+    <%= form_with model: [@blog], url: patch_blog_path(@blog), method: :patch, local: true do |form| %>
       <div class="form-group">
         <%= form.label :title, "Title", class: "form-label" %>
         <%= form.text_field :title, class: "form-input", placeholder: "Enter blog title" %>
